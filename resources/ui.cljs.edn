@@ -1,0 +1,2 @@
+{:require  [kunya.ui]
+ :init-fns [kunya.ui/init]}
