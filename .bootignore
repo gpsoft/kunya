@@ -1,2 +1,6 @@
+# Exclude files from watch task.
+# It's regex, not glob.
+
+# Vim swap files
 .*\.sw.$
 

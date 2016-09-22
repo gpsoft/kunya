@@ -7,8 +7,9 @@
                   [adzerk/boot-reload "0.4.12"]
                   [adzerk/boot-cljs-repl "0.3.3"]
                   [org.clojure/tools.nrepl "0.2.11"]
-                  [com.cemerick/piggieback   "0.2.1"]
-                  [weasel                    "0.7.0"]])
+                  [com.cemerick/piggieback "0.2.1"]
+                  [weasel "0.7.0"]
+                  [reagent "0.6.0"]])
 
 (require
   '[adzerk.boot-cljs :refer [cljs]]

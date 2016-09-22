@@ -1,4 +1,5 @@
 target/
 out/
 release/
+.cljs_rhino_repl/
 .nrepl-port
