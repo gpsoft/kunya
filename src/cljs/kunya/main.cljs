@@ -15,7 +15,7 @@
   "Url of index.html which varies
   according to optimization compiler option."
   []
-  (let [p (if dev? "/../.." "")]
+  (let [p (if dev? "/../../.." "/..")]
     (str "file://" js/__dirname p "/index.html")))
 
 (defn- new-window

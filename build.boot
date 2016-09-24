@@ -17,26 +17,60 @@
   '[adzerk.boot-cljs-repl :refer [cljs-repl]]
   '[adzerk.boot-reload :refer [reload]])
 
-;; define custom tasks.
+;; ABOUT :ids OPTION AND MULTIPLE BUILD
 ;; :ids option chooses *.cljs.edn files for multiple build.
-(deftask release []
-  (comp (cljs :ids #{"main"}
+;; for example:
+;;  - edn file => resources/js/ui.cljs.edn
+;;  - option => :ids #{"js/ui"}
+;;  - then compiler creates js/ui.js(entry point) and js/ui.out/*
+;; we need at least two entry points:
+;;  - one for electron main process kicked by nodejs
+;;  - one for main window loaded from index.html
+;; also depending on the location of entry point, we need to adjust:
+;;  - :asset-path compiler option ... for debug build only
+;;  - package.json ... relative path for main.js
+;;  - index.html ... relative path for ui.js
+;;  - main.cljs ... url for index.html
+(deftask release
+  "Release build."
+  []
+  (comp (cljs :ids #{"js/main"}
               :optimizations :simple)
-        (cljs :ids #{"ui"}
+        (cljs :ids #{"js/ui"}
               :optimizations :advanced)
         (target :dir #{"release"})))
 
-(deftask dev []
-  (comp (cljs :ids #{"main"}
-              :compiler-options {:asset-path "target/main.out"
-                                 :closure-defines {'kunya.main/dev? true}})
+(deftask build-main
+  "Build main entry point for debug."
+  []
+  (comp (cljs :ids #{"js/main"}
+              :compiler-options {:closure-defines {'kunya.main/dev? true}
+                                 :asset-path "target/js/main.out"})))
+
+(deftask build-ui
+  "Build ui entry point for debug."
+  []
+  (comp (cljs :ids #{"js/ui"}
+              :compiler-options {:asset-path "js/ui.out"})))
+
+(deftask debug
+  "Debug build."
+  []
+  (comp (build-main)
+        (build-ui)
+        (target :dir #{"target"})))
+
+(deftask dev
+  "Build and setup development environment."
+  []
+  (comp (build-main)
         (watch)
-        (cljs-repl :ids #{"ui"}
+        (cljs-repl :ids #{"js/ui"}
                    ;; if you want to fix the port...
                    ;; :nrepl-opts {:port 34567}
                    )
-        (reload :ids #{"ui"}
+        (reload :ids #{"js/ui"}
                 :ws-host  "127.0.0.1"
                 :on-jsload 'kunya.ui/init)
-        (cljs :ids #{"ui"})
+        (build-ui)
         (target :dir #{"target"})))
