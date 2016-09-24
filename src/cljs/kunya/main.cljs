@@ -6,7 +6,7 @@
 (def browser-window (.-BrowserWindow electron))
 
 ;; Debug switch
-;; Can be overridden by :clojure-defines at compile time.
+;; Can be overridden by :closure-defines at compile time.
 (goog-define dev? false)
 
 (def main-window (atom nil))
