@@ -1,6 +1,6 @@
 (set-env!
-  :source-paths #{"src/cljs"}
-  :resource-paths #{"resources"}
+  :source-paths #{"src/cljs"}    ;; compiled by cljs task
+  :resource-paths #{"resources"} ;; copied to the target dir by target task
   :dependencies '[[org.clojure/clojure "1.8.0"]
                   [org.clojure/clojurescript "1.9.229"]
                   [adzerk/boot-cljs "1.7.228-1"]
@@ -14,9 +14,11 @@
 
 (require
   '[adzerk.boot-cljs :refer [cljs]]
-  '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
+  '[adzerk.boot-cljs-repl :refer [cljs-repl]]
   '[adzerk.boot-reload :refer [reload]])
 
+;; define custom tasks.
+;; :ids option chooses *.cljs.edn files for multiple build.
 (deftask release []
   (comp (cljs :ids #{"main"}
               :optimizations :simple)
@@ -25,8 +27,7 @@
         (target :dir #{"release"})))
 
 (deftask dev []
-  (comp 
-        (cljs :ids #{"main"}
+  (comp (cljs :ids #{"main"}
               :compiler-options {:asset-path "target/main.out"
                                  :closure-defines {'kunya.main/dev? true}})
         (watch)
