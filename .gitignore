@@ -1,5 +1,8 @@
 target/
 out/
 release/
+#kunya-{linux,darwin,win32}-*/
+kunya-[dlw]*-*/
 .cljs_rhino_repl/
 .nrepl-port
+.nrepl-history
