@@ -33,17 +33,19 @@ This is only for vim-fireplace which uses cider-nrepl to access nRepl. And it ma
 
 # Usage
 
-Using two terminals:
+At first, start a bunch of boot tasks for development:
 
     $ boot dev
+
+Then open `src/cljs/kunya/ui.cljs` with Vim and do `:Piggieback (adzerk.boot-cljs-repl/repl-env)`. Vim looks like freezing, but it's actually waiting for connection from browser. So start electron on the other terminal:
 
     $ electron target/
 
 ![ss](ss.png)
 
-Then open `src/cljs/kunya/ui.cljs` with Vim, and `cpp`, `K`, `:Eval (js/alert "hoge")`, etc...
+Now vim-fireplace is ready, you can do `cpp`, `K`, `:Eval (js/alert "hoge")`, etc... `]<C-D>`(jump to the definition) looks fine, but unfortunately it opens boot's internal cache files. No problem with `]d` though.
 
-When something is wrong with vim-fireplace, do `:Piggieback!` to close latest cljs repl, then `:Piggieback (adzerk.boot-cljs-repl/repl-env)` to connect again.
+When something is wrong with vim-fireplace, do `:Piggieback!` to close latest cljs repl, then `:Piggieback (adzerk.boot-cljs-repl/repl-env)` again. Maybe you need to reload/restart electron.
 
 By the way, my understanding about the dev environment above is:
 - there are clojure nRepl server, cljs repl server, and cljs repl client

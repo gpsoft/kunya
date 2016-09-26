@@ -30,6 +30,8 @@
           (new-window 800 600
                       :autoHideMenuBar true
                       :webPreferences {:nodeIntegration false}))
+  ;;                  disabling nodeIntegration is for jQuery.
+  ;;                  drawback: you can't use "require" on a renderer process.
   (.loadURL @main-window (index-url))
   (when dev?
     (.openDevTools @main-window #js {:mode "undocked"}))
