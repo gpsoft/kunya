@@ -37,7 +37,7 @@ At first, start a bunch of boot tasks for development:
 
     $ boot dev
 
-Then open `src/cljs/kunya/ui.cljs` with Vim and do `:Piggieback (adzerk.boot-cljs-repl/repl-env)`. Vim looks like freezing, but it's actually waiting for connection from browser. So start electron on the other terminal:
+Then open `src/cljs/kunya/ui.cljs` with Vim and do `:Piggieback (adzerk.boot-cljs-repl/repl-env)`. Vim looks like freezing, but it's actually waiting for connection from browser. So start electron on another terminal:
 
     $ electron target/
 

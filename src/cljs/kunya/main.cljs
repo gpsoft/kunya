@@ -5,14 +5,26 @@
 (def app (.-app electron))
 (def browser-window (.-BrowserWindow electron))
 
-;; Debug switch
-;; Can be overridden by :closure-defines at compile time.
+;; Debug switch.
+;; can be overridden by :closure-defines at compile time.
 (goog-define dev? false)
+
+(comment
+  ;; an alternative to dev? switch is goog.DEBUG defined by
+  ;; Google Closure Library.
+  ;; however it's value is true by default and you have to
+  ;; change it manually for release build.
+  ;; David Nohlen said :closure-defines woks only when :optimizations
+  ;; is :none. So we can't use it to change goog.DEBUG to false.
+  ;; hmm... let's stick to dev? then.
+  (.log js/console (if dev? "debug" "release"))
+  (.log js/console (if ^boolean js/goog.DEBUG "DEBUG" "RELEASE")))
 
 (def main-window (atom nil))
 
 (defn- index-url
-  "Url of index.html which varies
+  "Url of index.html.
+  relative path to the file varies
   according to optimization compiler option."
   []
   (let [p (if dev? "/../../.." "/..")]

@@ -6,26 +6,33 @@
             [kunya.ui-pine :refer [compo3-impure]]))
 
 ;; Initial application state.
-;; Whole application state is in one place: a map.
-;; Think is as an in-memory DB.
+;; whole application state is in one place: a map.
+;; think it as an in-memory DB.
 (def initial-state
   {
    ;; key-value pairs
    })
 
-;; register a re-frame event
-;; here we associate event-id to event-handler.
+;; Register a re-frame event.
+;; here we associate event-id to event handler.
 ;; see more on compo2-dynamic.
 (r/reg-event-db
-  :ev-initialize
-  (fn
+  :ev-initialize  ;; event-id
+  (fn             ;; event handler
     [db _]
     (merge db initial-state)))
 
-;; define a reagent component
+;; Register a re-frame subscription(aka signal).
+;; see compo2-dynamic for more.
+(r/reg-sub
+  :sub-ready?
+  (fn [db query-v]
+    (not (empty? db))))
+
+;; Define a reagent component.
 ;; a component can be in various forms,
 ;; but eventually it creates a hiccup vector which represents a DOM element.
-;; more comes in compo1-static.
+;; see compo1-static for more.
 (defn- container
   []
   [:div.container

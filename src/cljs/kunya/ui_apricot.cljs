@@ -12,8 +12,8 @@
 ;;   form-2: function which returns a form-1-like function
 ;;   form-3: out of scope for this application
 ;;
-;; When you compose a hiccup vector, you can place a component
-;; at the first element of the vector.
+;; When you compose a hiccup vector, you can place another
+;; component at the first element of the vector.
 
 
 ;; here we define two form-1 components.
@@ -35,7 +35,7 @@
              "Vim"
              "vim-fireplace"]]
       ^{:key n} [:li n])]
-   ;;   :key metadata helps reagent identify a list item.
+   ;;   :key metadata helps reagent identify list items.
 
-   [para "Hey, it's late."]  ;; notice it's a vector
-   [para "Go to bed."]])      ;; not a function application.
+   [para "Hey, it's late."]  ;; notice it's a vector,
+   [para "Go to bed."]])     ;; not a function application.

@@ -1,0 +1,13 @@
+.power-status {
+    background-color: #ccc;
+    text-align: center;
+    margin-right: 8px;
+    width: 10em;
+}
+.power-status.on {
+    background-color: #0f0;
+}
+
+.clock {
+    color: #f88;
+}
